@@ -12,6 +12,8 @@ flask-sqlalchemy = "*"
 sqlalchemy-migrate = "*"
 requests = "*"
 ptpython = "*"
+sqlalchemy = "*"
+"flake8" = "*"
 
 
 [dev-packages]
