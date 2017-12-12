@@ -1,6 +1,7 @@
 from ReplayRetriever import db
 import enum
 
+
 class Matches(db.Model):
     """Main table for replay info."""
     replayID = db.Column(db.Integer, primary_key=True)
@@ -9,21 +10,31 @@ class Matches(db.Model):
     radiantID = db.Column(db.Integer, index=True)
     leagueID = db.Column(db.Integer, index=True)
 
-    startTime = db.Column(db.Integer)
-    
+    startTime = db.Column(db.DateTime)
+
     radiantWin = db.Column(db.Boolean)
 
+
 class MatchRetrieval(db.Model):
-    """Main table for replay info."""
+    """Table for replay retrieval information."""
     replayID = db.Column(db.Integer, primary_key=True)
 
     clusterID = db.Column(db.Integer)
     salt = db.Column(db.Integer)
     downloadAttempts = db.Column(db.Integer)
 
+
+class PnBTeam(enum.Enum):
+    """Number corresponds to the pickban team numbering which is radiant 0
+    dire 1.
+    """
+    Radiant = 0
+    Dire = 1
+
+
 class PlayerHeroes(db.Model):
     replayID = db.Column(db.Integer, primary_key=True)
-    side = db.Column(db.Integer, primary_key=True)
+    side = db.Column(db.Enum(PnBTeam), primary_key=True)
     order = db.Column(db.Integer, primary_key=True)
 
     playerID = db.Column(db.Integer, index=True)
