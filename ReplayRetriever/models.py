@@ -13,6 +13,8 @@ class Matches(db.Model):
     startTime = db.Column(db.DateTime)
 
     radiantWin = db.Column(db.Boolean)
+    # Replay api retrieval attempts.
+    retrievalAttempts = db.Column(db.Integer)
 
 
 class MatchRetrieval(db.Model):
@@ -22,6 +24,9 @@ class MatchRetrieval(db.Model):
 
     clusterID = db.Column(db.Integer)
     salt = db.Column(db.Integer)
+    # Salt retrieval attempts
+    retrievalAttempts = db.Column(db.Integer)
+    # Replay download attempts.
     downloadAttempts = db.Column(db.Integer)
 
 
