@@ -6,15 +6,31 @@ class Matches(db.Model):
     """Main table for replay info."""
     replayID = db.Column(db.Integer, primary_key=True)
 
-    direID = db.Column(db.Integer, index=True)
-    radiantID = db.Column(db.Integer, index=True)
-    leagueID = db.Column(db.Integer, index=True)
+    direID = db.Column(db.Integer)
+    radiantID = db.Column(db.Integer)
+    leagueID = db.Column(db.Integer)
 
     startTime = db.Column(db.DateTime)
 
     radiantWin = db.Column(db.Boolean)
     # Replay api retrieval attempts.
     retrievalAttempts = db.Column(db.Integer)
+
+
+class TeamStatus(db.Model):
+    """Table for storing last update for a team"""
+    teamID = db.Column(db.Integer, primary_key=True)
+    teamName = db.Column(db.String, primary_key=True)
+    validTimeStart = db.Column(db.DateTime)
+    validTimeEnd = db.Column(db.DateTime)
+    lastLeagueUpdate = db.Column(db.DateTime)
+
+
+class TeamLeagues(db.Model):
+    """Table for assosciating leagues with teams."""
+    teamID = db.Column(db.Integer, db.ForeignKey(TeamStatus.teamID),
+                       primary_key=True)
+    leagueID = db.Column(db.Integer, primary_key=True)
 
 
 class MatchRetrieval(db.Model):
@@ -44,7 +60,7 @@ class PlayerHeroes(db.Model):
     side = db.Column(db.Enum(PnBTeam), primary_key=True)
     order = db.Column(db.Integer, primary_key=True)
 
-    playerID = db.Column(db.Integer, index=True)
-    hero = db.Column(db.String, index=True)
+    playerID = db.Column(db.Integer)
+    hero = db.Column(db.String)
 
     idPick = db.Column(db.Boolean)
