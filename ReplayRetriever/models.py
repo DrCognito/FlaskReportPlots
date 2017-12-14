@@ -17,7 +17,8 @@ class Matches(db.Model):
 
 class MatchRetrieval(db.Model):
     """Table for replay retrieval information."""
-    replayID = db.Column(db.Integer, primary_key=True)
+    replayID = db.Column(db.Integer, db.ForeignKey(Matches.replayID),
+                         primary_key=True)
 
     clusterID = db.Column(db.Integer)
     salt = db.Column(db.Integer)
@@ -33,7 +34,8 @@ class PnBTeam(enum.Enum):
 
 
 class PlayerHeroes(db.Model):
-    replayID = db.Column(db.Integer, primary_key=True)
+    replayID = db.Column(db.Integer, db.ForeignKey(Matches.replayID),
+                         primary_key=True)
     side = db.Column(db.Enum(PnBTeam), primary_key=True)
     order = db.Column(db.Integer, primary_key=True)
 
